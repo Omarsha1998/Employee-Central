@@ -7,7 +7,8 @@
     :virtual-scroll-item-size="48"
     :virtual-scroll-sticky-size-start="48"
     :virtual-scroll-sticky-size-end="32"
-    :items="sortedLeaveDetails"
+    :items="displayedItems"
+    @virtual-scroll="onVirtualScroll"
   >
     <template v-slot:before>
       <thead class="sticky-thead">
@@ -1000,6 +1001,9 @@ export default {
     return {
       leaveDetails: this.itemDetails,
       approversDetails: this.itemApprover,
+      displayedItems: [],
+      toDisplay: 10,
+      toLoad: 10,
       leavecolumns: [
         {
           name: "",
@@ -1285,6 +1289,19 @@ export default {
         })
         .onDismiss(() => {});
     },
+
+    onVirtualScroll({ to }) {
+      if (to >= this.displayedItems.length - 2) {
+        if (this.toLoad < this.sortedLeaveDetails.length) {
+          this.toLoad += this.toDisplay;
+          this.displayedItems = this.sortedLeaveDetails.slice(0, this.toLoad);
+        }
+      }
+    },
+  },
+
+  created() {
+    this.displayedItems = this.sortedLeaveDetails.slice(0, this.toDisplay);
   },
 };
 </script>

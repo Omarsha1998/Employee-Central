@@ -96,7 +96,7 @@ const selectPurchaseRequests = async function (conditions, txn, options) {
         });
       }
 
-      if (list.completedBy !== null) {
+      if (list.dateTimeCompleted !== null) {
         list.dateTimeCompleted = util.formatDate2({
           date: list.dateTimeCompleted,
           withDayNameWithTime: true,

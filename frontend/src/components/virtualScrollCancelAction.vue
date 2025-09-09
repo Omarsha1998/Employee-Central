@@ -49,13 +49,14 @@
     :virtual-scroll-item-size="48"
     :virtual-scroll-sticky-size-start="48"
     :virtual-scroll-sticky-size-end="32"
-    :items="items"
+    :items="displayedItems"
+    @virtual-scroll="onVirtualScroll"
   >
     <template v-slot:before>
       <thead class="sticky-thead">
         <tr>
           <th style="width: 10px">
-            <q-checkbox v-model="selectAllLevel1" @click="selectAllItems">
+            <q-checkbox v-model="selectAllLevel1" @click="selectitems">
             </q-checkbox>
           </th>
           <th v-for="col in columns" :key="col.name">
@@ -268,6 +269,9 @@ export default {
 
   data() {
     return {
+      displayedItems: [],
+      toDisplay: 10,
+      toLoad: 10,
       selectAllLevel1: false,
       selectAllLevel2: false,
       rejectId: "",
@@ -331,7 +335,7 @@ export default {
       this.reasonForCancel = reasonForCancel;
     },
 
-    selectAllItems() {
+    selectitems() {
       if (this.selectAllLevel1) {
         if (
           this.selectedDeptDescription.length > 0 &&
@@ -658,6 +662,19 @@ export default {
         return row[col.field];
       }
     },
+
+    onVirtualScroll({ to }) {
+      if (to >= this.displayedItems.length - 2) {
+        if (this.toLoad < this.items.length) {
+          this.toLoad += this.toDisplay;
+          this.displayedItems = this.items.slice(0, this.toLoad);
+        }
+      }
+    },
+  },
+
+  created() {
+    this.displayedItems = this.items.slice(0, this.toDisplay);
   },
 };
 </script>

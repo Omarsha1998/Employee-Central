@@ -812,7 +812,7 @@ export default {
           label: "Print PDF",
           show: true,
           component: "PrintPDF",
-          props: { entry: row },
+          props: { entry: row, type: "overtime" },
         },
       ];
 

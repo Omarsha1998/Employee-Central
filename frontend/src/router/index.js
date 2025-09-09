@@ -186,10 +186,6 @@ export default route(function (/* { store, ssrContext } */) {
                 path: "/Leave",
                 component: () => import("src/pages/LeaveDetails.vue"),
               },
-              // {
-              //   path: "/LeaveOperation",
-              //   component: () => import("src/pages/LeaveOperation.vue"),
-              // },
               {
                 path: "/LeaveOperation",
                 component: () => import("src/pages//LeaveOperationCopy.vue"),

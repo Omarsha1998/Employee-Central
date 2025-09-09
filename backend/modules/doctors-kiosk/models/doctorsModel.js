@@ -629,8 +629,7 @@ const getDoctorsDepartment = async () => {
   // );
 
   return await sqlHelper.query(
-    `WITH MedicalDept AS (
-        SELECT 
+    `SELECT 
             CASE 
                 WHEN Name = 'Otorhinolaryngology' THEN 'ENT' 
                 WHEN Name = 'Trauma' AND Code = 'SURG-TRAUMA' THEN 'Surgery Trauma'
@@ -640,12 +639,7 @@ const getDoctorsDepartment = async () => {
             Code AS value
         FROM UERMMMC..MedicalDepartments
         WHERE Code NOT IN ('UEDEN', 'EMED') 
-    )
 
-    SELECT 
-        md.label,
-        md.value
-    FROM MedicalDept md
     `,
   );
 };
@@ -905,7 +899,7 @@ const doctorSchedule = async (doctorCode) => {
 	  LEFT JOIN
 		UERMMMC..DoctorConsultationTypes dct ON dc.ConsultationTypeCode = dct.Code
     WHERE 
-        DoctorCode = ?;
+        DoctorCode = ? and Active = 1;
     `,
     [doctorCode],
   );
@@ -1062,6 +1056,7 @@ const insertSchedule = async (item, txn, creationDateTimeField) => {
 };
 
 const doctorSecretaries = async (doctorEhrCode) => {
+  console.log(doctorEhrCode);
   return await sqlHelper.query(
     `SELECT 
       ds.SecretaryCode,

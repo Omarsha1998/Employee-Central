@@ -56,7 +56,8 @@
     :virtual-scroll-item-size="48"
     :virtual-scroll-sticky-size-start="48"
     :virtual-scroll-sticky-size-end="32"
-    :items="items"
+    :items="displayedItems"
+    @virtual-scroll="onVirtualScroll"
   >
     <template v-slot:before>
       <thead class="sticky-thead">
@@ -218,7 +219,8 @@
     :virtual-scroll-item-size="48"
     :virtual-scroll-sticky-size-start="48"
     :virtual-scroll-sticky-size-end="32"
-    :items="items"
+    :items="displayedItems"
+    @virtual-scroll="onVirtualScroll"
   >
     <template v-slot:before>
       <thead class="sticky-thead">
@@ -348,6 +350,9 @@ export default {
     return {
       reasonDetails: "",
       reasonDialog: false,
+      displayedItems: [],
+      toDisplay: 10,
+      toLoad: 10,
     };
   },
 
@@ -403,6 +408,19 @@ export default {
     //   const dateTime = new Date(dateTimeString);
     //   return dateTime.toLocaleDateString(undefined, options);
     // },
+
+    onVirtualScroll({ to }) {
+      if (to >= this.displayedItems.length - 2) {
+        if (this.toLoad < this.items.length) {
+          this.toLoad += this.toDisplay;
+          this.displayedItems = this.items.slice(0, this.toLoad);
+        }
+      }
+    },
+  },
+
+  created() {
+    this.displayedItems = this.items.slice(0, this.toDisplay);
   },
 };
 </script>

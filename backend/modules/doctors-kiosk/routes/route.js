@@ -80,11 +80,13 @@ router.get(
   validateAccessToken,
   doctorsController.getAllSecretaryWithDoctors,
 );
+// router.get("/doctorSecretaries", doctorsController.doctorSecretaries);
+
 router.get(
-  "/doctorSecretaries",
-  validateAccessToken,
+  "/doctorSecretaries/:doctorEhrCode",
   doctorsController.doctorSecretaries,
 );
+
 // router.post(
 //   "/updateDoctorStatus",
 //   validateAccessToken,

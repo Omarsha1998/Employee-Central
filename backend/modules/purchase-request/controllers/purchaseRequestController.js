@@ -35,8 +35,8 @@ const getPurchaseRequests = async function (req, res) {
           sqlWhere = `and fromDepartment IN (${deptCode}) and convert(date, dateTimeCreated) between '${fromDate}' and '${toDate}'`;
           order =
             purchaseDeptCode !== undefined
-              ? "dateTimeApproved asc"
-              : "dateTimeCreated asc";
+              ? "dateTimeApproved desc"
+              : "dateTimeCreated desc";
         } else if (viewing) {
           sqlWhere = `and fromDepartment = '${deptCode}'`;
           top = 10;
@@ -46,14 +46,14 @@ const getPurchaseRequests = async function (req, res) {
             sqlWhere = `and fromDepartment = '${deptCode}'  and convert(date,  dateTimeCreated) between '${fromDate}' and '${toDate}'`;
             order =
               purchaseDeptCode !== undefined
-                ? "dateTimeApproved asc"
-                : "dateTimeCreated asc";
+                ? "dateTimeApproved desc"
+                : "dateTimeCreated desc";
           } else {
             sqlWhere = `and fromDepartment IN (${deptCode})  and convert(date,  dateTimeCreated) between '${fromDate}' and '${toDate}'`;
             order =
               purchaseDeptCode !== undefined
-                ? "dateTimeApproved asc"
-                : "dateTimeCreated asc";
+                ? "dateTimeApproved desc"
+                : "dateTimeCreated desc";
           }
         }
       } else if (userCode) {

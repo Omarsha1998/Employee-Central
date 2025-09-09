@@ -215,9 +215,9 @@ export default {
     },
 
     formatTimeTo12Hours(Time) {
-      const dateObj = new Date(Time); // Convert string/ISO date to Date object
+      const dateObj = new Date(Time);
       if (isNaN(dateObj)) {
-        return ""; // or return original Time or handle invalid input
+        return "";
       }
       return dateObj.toLocaleTimeString("en-US", {
         hour: "numeric",

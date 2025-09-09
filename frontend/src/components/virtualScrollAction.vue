@@ -49,7 +49,8 @@
     :virtual-scroll-item-size="48"
     :virtual-scroll-sticky-size-start="48"
     :virtual-scroll-sticky-size-end="32"
-    :items="items"
+    :items="displayedItems"
+    @virtual-scroll="onVirtualScroll"
   >
     <template v-slot:before>
       <thead class="sticky-thead">
@@ -292,6 +293,9 @@ export default {
 
   data() {
     return {
+      displayedItems: [],
+      toDisplay: 10,
+      toDisplay: 10,
       selectAllLevel1: false,
       selectAllLevel2: false,
       rejectId: "",
@@ -723,6 +727,19 @@ export default {
     isTimeEnabled() {
       return this.Days % 1 !== 0 || this.Days2 % 1 !== 0;
     },
+
+    onVirtualScroll({ to }) {
+      if (to >= this.displayedItems.length - 2) {
+        if (this.toDisplay < this.items.length) {
+          this.toDisplay += this.toDisplay;
+          this.displayedItems = this.items.slice(0, this.toDisplay);
+        }
+      }
+    },
+  },
+
+  created() {
+    this.displayedItems = this.items.slice(0, this.toDisplay);
   },
 };
 </script>

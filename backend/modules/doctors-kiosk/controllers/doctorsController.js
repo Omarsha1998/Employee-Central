@@ -986,7 +986,6 @@ const processInsert = async (
         Day: codeValue ? codeValue.day : null,
         TimeFrom: codeValue ? codeValue.timeFrom : null,
         TimeTo: codeValue ? codeValue.timeTo : null,
-        ConsultationTypeCode: codeValue ? codeValue.consultationTypeCode : null,
         CreatedBy: createBy,
       },
       txn,
@@ -1300,7 +1299,9 @@ const updateDoctor = async (req, res) => {
 };
 
 const doctorSecretaries = async (req, res) => {
-  const { doctorEhrCode } = req.query;
+  const doctorEhrCode = req.params.doctorEhrCode;
+
+  // const { doctorEhrCode } = req.query;
   const schedule = await doctorsModel.doctorSecretaries(doctorEhrCode);
   if (!schedule) return res.status(500).json();
   return res.status(200).json(schedule);

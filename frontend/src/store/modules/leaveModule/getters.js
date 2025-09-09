@@ -22,4 +22,5 @@ export default {
   appemp: (state) => state.appemp,
   allDept: (state) => state.allDept,
   selEmpByDept: (state) => state.selEmpByDept,
+  getBgImage: (state) => state.base64Image,
 };

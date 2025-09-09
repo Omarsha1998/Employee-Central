@@ -28,7 +28,9 @@ const getOvertimeDetails = async (employeeCode) => {
       END AS Status,
       e.FULLNAME employeeName, 
       e.DEPT_CODE departmentCode, 
-      e.DEPT_DESC departmentDesc, 
+      e.DEPT_DESC departmentDesc,
+      e.POS_DESC position,
+	    e.EMP_STATUS_DESC employeeStatus,
       o.ApprovedByLevel1,
       o.ApprovedByLevel1DateTime, 
       o.ApprovedByLevel2, 
@@ -300,6 +302,16 @@ const insertIntoOldOvertime = async (item, txn, creationDateTimeField) => {
   );
 };
 
+const insertIntoAllowedOvertime = async (item, txn, creationDateTimeField) => {
+  console.log(item);
+  return await sqlHelper.insert(
+    "UERMATT..AllowedOvertime",
+    item,
+    txn,
+    creationDateTimeField,
+  );
+};
+
 const getFilter = async (employeeCode) => {
   return await sqlHelper.query(
     `SELECT *
@@ -366,4 +378,5 @@ module.exports = {
   getFilter,
   insertIntoSummary,
   getPendingAccomplishment,
+  insertIntoAllowedOvertime,
 };

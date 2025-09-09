@@ -301,7 +301,8 @@ const selectItemExceptions = async function (conditions, args, txn, options) {
         b.phicGroupCode,
         b.isGeneral,
         b.discontinue,
-        a.active
+        a.active,
+        1 as 'narcotics'
       FROM UERMINV..ItemExceptions a
 	    join UERMMMC..Phar_Items b on b.itemCode = a.itemCode collate LATIN1_GENERAL_CI_AS
       WHERE 1=1 ${conditions}

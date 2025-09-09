@@ -416,7 +416,7 @@ export default {
     commit("CLEAR_LEAVE_DETAILS");
   },
 
-  loadAndConvertToBase64({ commit }, logoPath) {
+  async loadAndConvertToBase64({ commit }, logoPath) {
     const image = new Image();
     image.src = logoPath;
 

@@ -635,15 +635,15 @@ export default {
             helperMethods.enablePointerEvents();
           } catch (error) {
             this.$q.loading.hide();
-            console.error(
-              `Error ${
-                action === "Approve" ? "approving" : "rejecting"
-              } overtime review`,
-            );
+            // console.error(
+            //   `Error ${
+            //     action === "Approve" ? "approving" : "rejecting"
+            //   } overtime review`,
+            // );
             this.$q.notify({
               color: "negative",
               position: "center",
-              message: `${error.response.body}`,
+              message: `${error.response.data.body}`,
               icon: "report_problem",
               iconColor: "white",
               timeout: 1000,

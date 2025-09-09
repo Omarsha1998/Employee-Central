@@ -10,8 +10,6 @@ const login = async (req, res) => {
   try {
     const { employee_id, password } = req.body;
 
-    console.log(employee_id, password);
-
     if (employee_id === null)
       return res.status(422).json("employee_id is required in the payload.");
 
